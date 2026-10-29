@@ -1,8 +1,8 @@
-# KrishiCycle AI 2.0 — Web Application Guide
-
-**Team:** God's Plan · **Event:** PRISM'26 SOCIOTHON · **Theme:** Smarter Agriculture for Small Farmers
+# KrishiCycle AI — Web Application Guide
 
 KrishiCycle AI 2.0 is a complete, connected agricultural decision support system and circular bio-economy platform built for smallholder farmers in Maharashtra, India.
+
+For a quick project overview and setup instructions, see [README.md](./README.md).
 
 ---
 
