@@ -1,0 +1,54 @@
+.specular-card {
+  --sc-radius: 24px;
+  --sc-border-color: rgba(255, 255, 255, 0.08);
+  --sc-glow-color: rgba(200, 242, 59, 0.35);
+
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--sc-radius);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease;
+}
+
+/* Light canvas overlay (WebGL2) */
+.specular-card__light {
+  position: absolute;
+  inset: -24px;
+  z-index: 1;
+  display: block;
+  width: calc(100% + 48px);
+  height: calc(100% + 48px);
+  pointer-events: none;
+  border-radius: calc(var(--sc-radius) + 24px);
+}
+
+/* Fallback CSS edge lighting for environments without active WebGL2 context */
+.specular-card__fallback-border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.2px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    320px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--sc-glow-color),
+    transparent 60%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.specular-card:hover .specular-card__fallback-border {
+  opacity: 1;
+}
+
+/* Card inner content sits comfortably above specular light */
+.specular-card__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}

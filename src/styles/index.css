@@ -1,0 +1,284 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --canvas: #EFEBE3;
+  --ink: #0F1A14;
+  --primary: #1F5A3D;
+  --lime: #C8F23B;
+  --lilac: #C9B6F2;
+  --teal: #7CCFC4;
+  --amber: #F4B740;
+  --red: #D9534F;
+  --surface-dark: #0A110D;
+  --surface-card: #122019;
+  --surface-border: #1F372B;
+}
+
+/* Global Reset & Overflow Protection */
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  max-width: 100%;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom Scrollbar (overridden by .no-scrollbar where hidden) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A110D;
+}
+::-webkit-scrollbar-thumb {
+  background: #1F372B;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2B4E3E;
+}
+
+/* Hide scrollbar completely across Chrome, Safari, Firefox, Edge */
+.no-scrollbar::-webkit-scrollbar,
+#auth-scroll-panel::-webkit-scrollbar,
+#auth-left-panel::-webkit-scrollbar,
+[data-no-scrollbar]::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  -webkit-appearance: none !important;
+}
+.no-scrollbar::-webkit-scrollbar-track,
+#auth-scroll-panel::-webkit-scrollbar-track,
+#auth-left-panel::-webkit-scrollbar-track,
+[data-no-scrollbar]::-webkit-scrollbar-track {
+  display: none !important;
+  background: transparent !important;
+}
+.no-scrollbar::-webkit-scrollbar-thumb,
+#auth-scroll-panel::-webkit-scrollbar-thumb,
+#auth-left-panel::-webkit-scrollbar-thumb,
+[data-no-scrollbar]::-webkit-scrollbar-thumb {
+  display: none !important;
+  background: transparent !important;
+}
+.no-scrollbar,
+#auth-scroll-panel,
+#auth-left-panel,
+[data-no-scrollbar] {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Glassmorphism utility classes matching Image 3 */
+.liquid-glass {
+  background: rgba(18, 32, 25, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+.liquid-glass-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 30px rgba(15, 26, 20, 0.08);
+}
+
+.liquid-glass-pill {
+  background: rgba(14, 25, 20, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(200, 242, 59, 0.22);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Card Glow Effect */
+.card-glow-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-glow-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(200, 242, 59, 0.4);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6), 0 0 20px -2px rgba(200, 242, 59, 0.15);
+}
+
+/* Shimmer Loading */
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #122019 0%, #1c3227 50%, #122019 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Leaflet Container reset */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 1.5rem;
+  z-index: 10;
+  background-color: #122019 !important;
+}
+
+.leaflet-bottom.leaflet-right .leaflet-control-attribution {
+  background: rgba(10, 17, 13, 0.75) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-size: 9px !important;
+  border-radius: 6px;
+  padding: 1px 6px !important;
+  margin: 0 4px 4px 0 !important;
+}
+.leaflet-bottom.leaflet-right .leaflet-control-attribution a {
+  color: #7CCFC4 !important;
+}
+
+/* Text glow */
+.text-glow-lime {
+  text-shadow: 0 0 18px rgba(200, 242, 59, 0.5);
+}
+
+/* Continuous Auto-Scrolling Marquee */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  animation: marquee-scroll 42s linear infinite;
+  will-change: transform;
+}
+
+/* Pause on hover for comfortable reading & clicking */
+.group-marquee:hover .animate-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Modal Animations */
+@keyframes modal-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modal-backdrop {
+  animation: modal-backdrop-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-modal-card {
+  animation: modal-scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   GLOBAL SELECT / OPTION DARK THEME FIX
+   Root cause: native browser dropdown (OS popup) ignores rgba/alpha backgrounds
+   and defaults to the system light theme unless `color-scheme: dark` and solid
+   background-color are set on both <select> and <option> elements.
+   This rule covers every select in the entire app.
+   ─────────────────────────────────────────────────────────────────────────────*/
+
+/* Force every native select to use the dark color-scheme so the OS renders a
+   dark dropdown popup (works in Chrome ≥ 96, Edge, Firefox, Safari ≥ 15.4) */
+select {
+  color-scheme: dark;
+  background-color: #0A110D !important;
+  color: #ffffff !important;
+}
+
+/* Option elements: solid dark background + readable text so they're visible in
+   all browsers that allow option styling (Chrome, Edge, Firefox) */
+option {
+  background-color: #0E1A13 !important;
+  color: #ffffff !important;
+}
+
+/* Option groups */
+optgroup {
+  background-color: #122019 !important;
+  color: #9ca3af !important;
+  font-weight: 700;
+}
+
+/* Disabled options */
+option:disabled {
+  color: #4b5563 !important;
+  background-color: #0A110D !important;
+}
+
+/* Checked/selected option highlight where browser supports it */
+option:checked,
+option:hover {
+  background-color: #1a3d28 !important;
+  color: #C8F23B !important;
+}
+
+/* Input[type=date] and input[type=time] also show OS calendar/time pickers —
+   enforce dark color-scheme on them too */
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"] {
+  color-scheme: dark;
+  background-color: #0A110D;
+  color: #ffffff;
+}
+
+/* Color-scheme dark globally on html ensures the browser's native UI controls
+   (scrollbars, form controls) all default to dark mode */
+html {
+  color-scheme: dark;
+}
+
